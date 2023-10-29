@@ -115,6 +115,9 @@ function startTranslation() {
                         .then(data => {
                             const translation = data[0].translations[0].text;
                             if(input.value.trim() !== '') {
+                                if(from === '0') {
+                                    selectInputWrapper.innerHTML = languages[data[0].detectedLanguage.language].nativeName + " - Detected" + '<span class="dropdown-svg"><svg><use href="#FxSymbol0-035"></use></svg></span>';
+                                }
                                 output.value = translation;
                             }
                         })
@@ -123,6 +126,9 @@ function startTranslation() {
                         });
                 } else {
                     output.value = "";
+                    if(from === '0') {
+                        selectInputWrapper.innerHTML = "Auto Detect" + '<span class="dropdown-svg"><svg><use href="#FxSymbol0-035"></use></svg></span>';
+                    }
                 }
             }
             input.addEventListener('keyup', function(e) {
