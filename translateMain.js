@@ -37,20 +37,14 @@ function startTranslation() {
         .then(response => response.json())
         .then(data => {
             const languages = data.translation;
-            let lang_list = '';
+            let lang_list = '<span class="single-language active" code="th" >Thai (ไทย)</span>';
             let lang_list_input = '<span class="single-language active" code="0" >Auto Detect</span>';
-            let currentLang = 'en';
             for (const code in languages) {
-                if (code === currentLang) {
-                    lang_list += '<span class="single-language active" code="' + code + '" >' + languages[code].nativeName + '</span>';
-                } else {
-                    lang_list += '<span class="single-language"  code="' + code + '">' + languages[code].nativeName + '</span>';
-                }
                 lang_list_input += '<span class="single-language"  code="' + code + '">' + languages[code].nativeName + '</span>';
             }
             let content = "";
-            content += '<div class="input-area"><span>From</span><div class="language-list"><div current-lang="0" class="select-wrapper">Auto Detect<span class="dropdown-svg"><svg><use href="#FxSymbol0-035"></use></svg></span></div><div class="display-area">' + lang_list_input + '</div></div><textarea></textarea></div>';
-            content += '<div class="output-area"><span>To</span><div class="language-list"><div current-lang="en" class="select-wrapper">English<span class="dropdown-svg"><svg><use href="#FxSymbol0-035"></use></svg></span></div><div class="display-area">' + lang_list + '</div></div><textarea></textarea></div>';
+            content += '<div class="input-area"><span>From: <div class="language-list"><div current-lang="0" class="select-wrapper">Auto Detect<span class="dropdown-svg"><svg><use href="#FxSymbol0-035"></use></svg></span></div><div class="display-area">' + lang_list_input + '</div></div></span><textarea></textarea></div>';
+            content += '<div class="output-area"><span>To: <div class="language-list"><div current-lang="th" class="select-wrapper">Thai (ไทย)<span class="dropdown-svg"><svg><use href="#FxSymbol0-035"></use></svg></span></div><div class="display-area">' + lang_list + '</div></div></span><textarea></textarea></div>';
             content += '<svg style="display:none;"><defs><symbol viewBox="0 0 14.7 8.1" id="FxSymbol0-035" ><g><title></title><path d="m.7 0 6.7 6.6L14 0l.7.7-7.3 7.4L0 .7.7 0z"></path></g></symbol></defs></svg>';
             document.querySelector('#bing_translation_container').innerHTML = content;
 
@@ -160,7 +154,6 @@ var styleCode = `
     padding: 20px;
     position: absolute;
     height: calc(100% - 64px);
-
 }
 
 #bing_translation_container>.input-area,
@@ -168,9 +161,18 @@ var styleCode = `
     width: calc(50% - 10px);
     display: flex;
     flex-direction: column;
-    row-gap: 10px;
 }
-
+@media (max-width: 640px) {
+    #bing_translation_container {
+        display: flex;
+        flex-direction: column;
+    }
+    #bing_translation_container>.input-area,
+    #bing_translation_container>.output-area {
+        width: 100%;
+        height: calc(50% - 10px);
+    }
+}
 #bing_translation_container .language-list .single-language {
     padding: 2px 10px;
     font-size: 16px;
@@ -243,11 +245,20 @@ var styleCode = `
     width: 12px;
 }
 #bing_translation_container textarea {
+    border: 0.7px solid #7b7b7b;
     resize: none;
-    height: calc(100% - 44px);
+    height: calc(100% - 46px);
     padding: 10px 15px;
     font-size: 16px;
     outline: none;
+    border-radius: 5px;
+    margin-top:10px;
+}
+#bing_translation_container > .input-area > span,
+#bing_translation_container>.output-area >span  {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 `;
 
