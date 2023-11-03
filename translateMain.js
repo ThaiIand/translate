@@ -148,7 +148,9 @@ var styleCode = `
 }
 #thai_translation_container>.output-area {
     width: calc(100% - 20px);
-    padding: 0 10px 0px 10px
+    padding: 0 10px 0px 10px;
+    word-wrap: break-word;
+    text-align: justify;
 }
 @media (max-width: 640px) {
     #thai_translation_container {
