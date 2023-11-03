@@ -251,7 +251,6 @@ var styleCode = `
     align-items: center;
     gap: 5px;
     height: 26px;
-    padding-left: 5px;
 }
 `;
 
