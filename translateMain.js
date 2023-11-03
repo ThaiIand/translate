@@ -44,7 +44,7 @@ function startTranslation() {
             }
             let content = "";
             content += '<div class="output-area"></div>';
-            content += '<div class="input-area"><span>From: <div class="language-list"><div current-lang="0" class="select-wrapper">Auto Detect<span class="dropdown-svg"><svg><use href="#FxSymbol0-035"></use></svg></span></div><div class="display-area">' + lang_list_input + '</div></div></span><textarea></textarea></div>';
+            content += '<div class="input-area"><span><div class="language-list"><div current-lang="0" class="select-wrapper">Auto Detect<span class="dropdown-svg"><svg><use href="#FxSymbol0-035"></use></svg></span></div><div class="display-area">' + lang_list_input + '</div></div></span><textarea></textarea></div>';
             content += '<svg style="display:none;"><defs><symbol viewBox="0 0 14.7 8.1" id="FxSymbol0-035" ><g><title></title><path d="m.7 0 6.7 6.6L14 0l.7.7-7.3 7.4L0 .7.7 0z"></path></g></symbol></defs></svg>';
             document.querySelector('#thai_translation_container').innerHTML = content;
 
