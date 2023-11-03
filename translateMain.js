@@ -43,15 +43,15 @@ function startTranslation() {
                 lang_list_input += '<span class="single-language"  code="' + code + '">' + languages[code].nativeName + '</span>';
             }
             let content = "";
+            content += '<div class="output-area"></div>';
             content += '<div class="input-area"><span>From: <div class="language-list"><div current-lang="0" class="select-wrapper">Auto Detect<span class="dropdown-svg"><svg><use href="#FxSymbol0-035"></use></svg></span></div><div class="display-area">' + lang_list_input + '</div></div></span><textarea></textarea></div>';
-            content += '<div class="output-area"><span>To: Thai (ไทย)</span><textarea></textarea></div>';
             content += '<svg style="display:none;"><defs><symbol viewBox="0 0 14.7 8.1" id="FxSymbol0-035" ><g><title></title><path d="m.7 0 6.7 6.6L14 0l.7.7-7.3 7.4L0 .7.7 0z"></path></g></symbol></defs></svg>';
             document.querySelector('#thai_translation_container').innerHTML = content;
 
             var selectInputWrapper = document.querySelector('#thai_translation_container .input-area .select-wrapper');
             var displayInputArea = document.querySelector('#thai_translation_container .input-area .display-area');
             var input = document.querySelector('#thai_translation_container .input-area textarea');
-            var output = document.querySelector('#thai_translation_container .output-area textarea');
+            var output = document.querySelector('#thai_translation_container .output-area');
 
 
             selectInputWrapper.addEventListener('click', function () {
@@ -95,14 +95,14 @@ function startTranslation() {
                                 if(from === '0') {
                                     selectInputWrapper.innerHTML = languages[data[0].detectedLanguage.language].nativeName + " - Detected" + '<span class="dropdown-svg"><svg><use href="#FxSymbol0-035"></use></svg></span>';
                                 }
-                                output.value = translation;
+                                output.innerText = translation;
                             }
                         })
                         .catch(error => {
                             console.error('Translation error:', error);
                         });
                 } else {
-                    output.value = "";
+                    output.innerText = "";
                     if(from === '0') {
                         selectInputWrapper.innerHTML = "Auto Detect" + '<span class="dropdown-svg"><svg><use href="#FxSymbol0-035"></use></svg></span>';
                     }
@@ -111,13 +111,14 @@ function startTranslation() {
             input.addEventListener('keyup', function(e) {
                 translateText(e.target.value, selectInputWrapper.getAttribute('current-lang'));
             });
-
+            input.addEventListener('change', function(e) {
+                translateText(e.target.value, selectInputWrapper.getAttribute('current-lang'));
+            });
             window.addEventListener('click', function (e) {
                 if (selectInputWrapper !== e.target && !selectInputWrapper.contains(e.target)) {
                     displayInputArea.classList.remove('open');
                 }
             });
-
 
         })
         .catch(error => {
@@ -128,9 +129,9 @@ function startTranslation() {
 var styleCode = `
 #thai_translation_container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 20px;
-    width: calc(100% - 60px);
+    width: calc(100% - 56px);
     padding: 20px;
     position: absolute;
     height: calc(100% - 64px);
@@ -138,19 +139,28 @@ var styleCode = `
 
 #thai_translation_container>.input-area,
 #thai_translation_container>.output-area {
-    width: calc(50% - 10px);
     display: flex;
     flex-direction: column;
+}
+#thai_translation_container>.input-area {
+    width: 100%;
+    min-height: 300px;
+}
+#thai_translation_container>.output-area {
+    width: calc(100% - 20px);
+    padding: 0 10px 0px 10px
 }
 @media (max-width: 640px) {
     #thai_translation_container {
         display: flex;
         flex-direction: column;
     }
-    #thai_translation_container>.input-area,
-    #thai_translation_container>.output-area {
+    #thai_translation_container>.input-area {
         width: 100%;
         height: calc(50% - 10px);
+    }
+    #thai_translation_container>.output-area {
+        width: 100%;
     }
 }
 #thai_translation_container .language-list .single-language {
@@ -234,12 +244,12 @@ var styleCode = `
     border-radius: 5px;
     margin-top:10px;
 }
-#thai_translation_container > .input-area > span,
-#thai_translation_container>.output-area >span  {
+#thai_translation_container > .input-area > span  {
     display: flex;
     align-items: center;
     gap: 5px;
     height: 26px;
+    padding-left: 5px;
 }
 `;
 
