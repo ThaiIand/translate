@@ -113,9 +113,6 @@ function startTranslation() {
             });
 
             window.addEventListener('click', function (e) {
-                if (selectWrapper !== e.target && !selectWrapper.contains(e.target)) {
-                    displayArea.classList.remove('open');
-                }
                 if (selectInputWrapper !== e.target && !selectInputWrapper.contains(e.target)) {
                     displayInputArea.classList.remove('open');
                 }
